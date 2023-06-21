@@ -11,6 +11,6 @@ Source -> Collector: collect events from SDK, File, etc.
 EventSource -> Collector: collect events from other services
 Collector -> EventProcessor: produce message
 EventProcessor -> Delivery: consume message
-Delivery -> Client: push events
+Delivery -> Client: push messages in single/batch/streaming
 
 @enduml
