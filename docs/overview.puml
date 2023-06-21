@@ -1,0 +1,16 @@
+@startuml
+
+actor Source
+queue Kafka as EventSource
+participant Collector
+queue Kafka as EventProcessor
+participant Delivery
+actor Client
+
+Source -> Collector: collect events from SDK, File, etc.
+EventSource -> Collector: collect events from other services
+Collector -> EventProcessor: produce message
+EventProcessor -> Delivery: consume message
+Delivery -> Client: push events
+
+@enduml
