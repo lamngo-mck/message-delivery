@@ -17,11 +17,10 @@ func (h *EventCollectorHandler) CollectEvents(ctx *gin.Context) {
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			"Error": err,
 		})
-
 		return
 	}
 
-	err := h.service.Collect(message)
+	err := h.service.Collect(ctx, message)
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			"error": err,
