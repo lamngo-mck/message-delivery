@@ -11,8 +11,14 @@ type EventCollectorHandler struct {
 	service in.EventCollector
 }
 
+func NewEventCollectorHandler(service in.EventCollector) EventCollectorHandler {
+	return EventCollectorHandler{
+		service: service,
+	}
+}
+
 func (h *EventCollectorHandler) CollectEvents(ctx *gin.Context) {
-	var message domain.Event
+	var message domain.Message
 	if err := ctx.ShouldBindJSON(&message); err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			"Error": err,

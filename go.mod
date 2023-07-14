@@ -2,7 +2,10 @@ module message-delivery
 
 go 1.20
 
-require github.com/gin-gonic/gin v1.9.1
+require (
+	github.com/gin-gonic/gin v1.9.1
+	github.com/mailjet/mailjet-apiv3-go v0.0.0-20201009050126-c24bc15a9394
+)
 
 require (
 	github.com/bytedance/sonic v1.9.1 // indirect

@@ -6,5 +6,5 @@ import (
 )
 
 type EventCollector interface {
-	Collect(ctx context.Context, event domain.Event) error
+	Collect(ctx context.Context, message domain.Message) error
 }

@@ -4,4 +4,4 @@ This is a pet project that applies hexagonal architecture to build a message del
 
 This is a high-level design diagram:
 
-![img.png](docs/diagram.png)
+![img.png](docs/overview.png)

@@ -3,31 +3,35 @@ package domain
 import "time"
 
 type Message struct {
-	Content   Content
-	CreatedAt time.Time
+	ID         string                 `json:"id"`
+	Name       string                 `json:"name"`
+	Type       MessageType            `json:"type"`
+	Schedule   *Schedule              `json:"schedule"`
+	Endpoints  []string               `json:"endpoint"`
+	TemplateId string                 `json:"template_id"`
+	Attributes map[string]interface{} `json:"attributes"`
+	IsBatching bool                   `json:"is_batching"`
+	Source     string                 `json:"source"`
+	Priority   Priority               `json:"priority"`
 }
 
-type Content interface {
-	GetDetail() interface{}
-}
+type MessageType string
 
-type WebPushMessage struct {
-}
+var (
+	MessageTriggered MessageType = "Triggered"
+	MessageScheduled MessageType = "Scheduled"
+)
 
-func (w WebPushMessage) GetDetail() interface{} {
-	return nil
-}
+type Priority string
 
-type EmailMessage struct {
-}
+var (
+	PriorityHigh   Priority = "High"
+	PriorityMedium Priority = "Medium"
+	PriorityLow    Priority = "Low"
+)
 
-func (e EmailMessage) GetDetail() interface{} {
-	return nil
-}
-
-type OnsiteMessage struct {
-}
-
-func (o OnsiteMessage) GetDetail() interface{} {
-	return nil
+type Schedule struct {
+	StartTime time.Time
+	EndTime   time.Time
+	Interval  time.Duration
 }

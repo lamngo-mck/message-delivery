@@ -1,16 +1,26 @@
 @startuml
 
 actor Source
-queue Kafka as EventSource
+participant Validator
 participant Collector
+database "Event Storage" as EventDB
+database DynamoDB
 queue Kafka as EventProcessor
 participant Delivery
-actor Client
+database "Template Storage" as TemplateDB
+actor Customer
 
-Source -> Collector: collect events from SDK, File, etc.
-EventSource -> Collector: collect events from other services
-Collector -> EventProcessor: produce message
-EventProcessor -> Delivery: consume message
-Delivery -> Client: push messages in single/batch/streaming
+Source -> Validator: 1. collect events
+group Message Delivery
+    Validator -> Collector: 2. send valid events
+    Collector -> EventDB: 3. persist message
+    Collector -> DynamoDB: 4.1 store scheduled message
+    DynamoDB ->> EventProcessor: 5. push expired message
+    Collector ->> EventProcessor: 4.2. publish trigger message
+    EventProcessor ->> Delivery: 6. consume messages
+end
+Delivery -> TemplateDB: 7. query message template
+TemplateDB --> Delivery: 200 OK
+Delivery -> Customer: 8. send messages
 
 @enduml
