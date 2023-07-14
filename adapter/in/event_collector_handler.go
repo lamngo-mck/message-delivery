@@ -8,7 +8,8 @@ import (
 )
 
 type EventCollectorHandler struct {
-	service in.EventCollector
+	service   in.EventCollector
+	validator in.Validator
 }
 
 func NewEventCollectorHandler(service in.EventCollector) EventCollectorHandler {
@@ -26,9 +27,16 @@ func (h *EventCollectorHandler) CollectEvents(ctx *gin.Context) {
 		return
 	}
 
+	if err := h.validator.Validate(ctx, message); err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"error": err,
+		})
+		return
+	}
+
 	err := h.service.Collect(ctx, message)
 	if err != nil {
-		ctx.JSON(http.StatusBadRequest, gin.H{
+		ctx.JSON(http.StatusInternalServerError, gin.H{
 			"error": err,
 		})
 		return

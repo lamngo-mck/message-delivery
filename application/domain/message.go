@@ -35,3 +35,10 @@ type Schedule struct {
 	EndTime   time.Time
 	Interval  time.Duration
 }
+
+func (s Schedule) IsValidSchedule() bool {
+	if s.EndTime.Unix() < s.StartTime.Unix() {
+		return false
+	}
+	return true
+}
