@@ -11,9 +11,7 @@ func main() {
 	handler := in.NewEventCollectorHandler(svc)
 
 	engine := gin.New()
-	engine.POST("/api/v1/events", func(context *gin.Context) {
-		handler.CollectEvents(context)
-	})
+	engine.POST("/api/v1/events", handler.CollectEvents)
 	err := engine.Run(":3000")
 	if err != nil {
 		panic(err)
