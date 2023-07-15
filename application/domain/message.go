@@ -36,7 +36,7 @@ type Schedule struct {
 	Interval  time.Duration
 }
 
-func (s Schedule) IsValidSchedule() bool {
+func (s Schedule) IsValid() bool {
 	if s.EndTime.Unix() < s.StartTime.Unix() {
 		return false
 	}

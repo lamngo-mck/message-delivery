@@ -12,7 +12,7 @@ func (v EventValidator) Validate(ctx context.Context, message domain.Message) er
 	if len(message.Endpoints) == 0 {
 		return errors.New("empty endpoints")
 	}
-	if message.Schedule != nil && !message.Schedule.IsValidSchedule() {
+	if message.Schedule != nil && !message.Schedule.IsValid() {
 		return errors.New("invalid schedule")
 	}
 	return nil
