@@ -8,7 +8,8 @@ import (
 
 func main() {
 	svc := service.NewEventCollectorService()
-	handler := in.NewEventCollectorHandler(svc)
+	validator := service.EventValidator{}
+	handler := in.NewEventCollectorHandler(svc, validator)
 
 	engine := gin.New()
 	engine.POST("/api/v1/events", handler.CollectEvents)

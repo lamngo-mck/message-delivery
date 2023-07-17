@@ -7,7 +7,7 @@ type Message struct {
 	Name       string                 `json:"name"`
 	Type       MessageType            `json:"type"`
 	Schedule   *Schedule              `json:"schedule"`
-	Endpoints  []string               `json:"endpoint"`
+	Endpoints  []string               `json:"endpoints"`
 	TemplateId string                 `json:"template_id"`
 	Attributes map[string]interface{} `json:"attributes"`
 	IsBatching bool                   `json:"is_batching"`

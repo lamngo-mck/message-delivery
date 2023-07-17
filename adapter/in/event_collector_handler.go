@@ -12,9 +12,10 @@ type EventCollectorHandler struct {
 	validator in.Validator
 }
 
-func NewEventCollectorHandler(service in.EventCollector) EventCollectorHandler {
+func NewEventCollectorHandler(service in.EventCollector, validator in.Validator) EventCollectorHandler {
 	return EventCollectorHandler{
-		service: service,
+		service:   service,
+		validator: validator,
 	}
 }
 
